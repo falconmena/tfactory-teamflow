@@ -2,9 +2,11 @@
 
 namespace Techsfactory\TfactoryTeamflow;
 
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Techsfactory\TfactoryTeamflow\Commands\TfactoryTeamflowCommand;
+use Livewire\Livewire;
 
 class TfactoryTeamflowServiceProvider extends PackageServiceProvider
 {
@@ -20,6 +22,35 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigration('create_tfactory_teamflow_table')
-            ->hasCommand(TfactoryTeamflowCommand::class);
+            ->hasCommand(TfactoryTeamflowCommand::class)
+            ->hasInstallCommand(function(InstallCommand $command) {
+                $command
+                    ->publishConfigFile()
+                    ->publishAssets()
+                    ->publishMigrations()
+                    ->copyAndRegisterServiceProviderInApp();
+            });
+    }
+
+    public function boot(): void
+    {
+        // Register Livewire Components
+        $this->registerLivewireComponents();
+
+        // Publish any views or assets
+        $this->publishes([
+            __DIR__ . '/../resources/views' => resource_path('views/vendor/tfactory-teamflow'),
+        ], 'teamflow-views');
+    }
+
+    /**
+     * Register Livewire components for the package.
+     */
+    protected function registerLivewireComponents()
+    {
+        // Publish Livewire's assets if needed (optional)
+        if (class_exists(\Livewire\Livewire::class)) {
+            Livewire::component('send-message', \Techsfactory\TfactoryTeamflow\Http\Livewire\SendMessage::class);
+        }
     }
 }
