@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Techsfactory\TfactoryTeamflow;
 
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use VendorName\Skeleton\Commands\SkeletonCommand;
+use Techsfactory\TfactoryTeamflow\Commands\TfactoryTeamflowCommand;
 
-class SkeletonServiceProvider extends PackageServiceProvider
+class TfactoryTeamflowServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
@@ -16,10 +16,10 @@ class SkeletonServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('skeleton')
+            ->name('tfactory-teamflow')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_migration_table_name_table')
-            ->hasCommand(SkeletonCommand::class);
+            ->hasMigration('create_tfactory_teamflow_table')
+            ->hasCommand(TfactoryTeamflowCommand::class);
     }
 }
