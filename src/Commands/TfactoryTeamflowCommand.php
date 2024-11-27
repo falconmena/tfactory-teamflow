@@ -6,14 +6,17 @@ use Illuminate\Console\Command;
 
 class TfactoryTeamflowCommand extends Command
 {
-    public $signature = 'tfactory-teamflow';
+    protected $signature = 'tfactory-teamflow:install';
 
-    public $description = 'My command';
+    protected $description = 'Install and configure tfactory-teamflow package';
 
-    public function handle(): int
+    public function handle()
     {
-        $this->comment('All done');
+        $this->call('vendor:publish', ['--provider' => 'Techsfactory\\TfactoryTeamflow\\TfactoryTeamflowServiceProvider']);
+        
+        $this->info('Running migrations...');
+        $this->call('migrate', ['--force' => true]);
 
-        return self::SUCCESS;
+        $this->info('TfactoryTeamflow installation complete!');
     }
 }

@@ -28,7 +28,9 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishAssets()
                     ->publishMigrations()
-                    ->copyAndRegisterServiceProviderInApp();
+                    ->callAfterInstall(function(){
+                        $this->runMigrations();
+                    });
             });
     }
 
@@ -52,5 +54,11 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
         if (class_exists(\Livewire\Livewire::class)) {
             Livewire::component('send-message', \Techsfactory\TfactoryTeamflow\Http\Livewire\SendMessage::class);
         }
+    }
+
+    protected function runMigrations()
+    {
+        // Run migrations using the Artisan command
+        \Artisan::call('migrate', ['--force' => true]);
     }
 }
