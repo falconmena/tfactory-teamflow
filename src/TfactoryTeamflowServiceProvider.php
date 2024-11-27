@@ -36,10 +36,19 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
         // Register Livewire Components
         $this->registerLivewireComponents();
 
-        // Publish any views or assets
+        $this->publishes([
+            __DIR__ . '/../database/migrations' => database_path('migrations'),
+        ], 'tfactory-teamflow-migrations');
+
+        // Register config file for publishing
+        $this->publishes([
+            __DIR__ . '/../config/tfactory-teamflow.php' => config_path('tfactory-teamflow.php'),
+        ], 'tfactory-teamflow-config');
+
+        // Register views for publishing
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/tfactory-teamflow'),
-        ], 'teamflow-views');
+        ], 'tfactory-teamflow-views');
     }
 
     /**
