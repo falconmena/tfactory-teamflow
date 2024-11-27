@@ -22,8 +22,7 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
                 $command
                     ->publishConfigFile()
                     ->publishAssets()
-                    ->publishMigrations()
-                    ->runMigrations();
+                    ->publishMigrations();
             });
     }
 
