@@ -32,6 +32,8 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
 
         $this->registerLivewireComponents();
 
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'tfactory-teamflow');
+
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
         ], 'tfactory-teamflow-migrations');
