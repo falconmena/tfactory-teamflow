@@ -49,11 +49,9 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
 
     protected function registerLivewireComponents()
     {
-        if (class_exists(\Livewire\Livewire::class)) {
-            \Livewire\Livewire::component('tfactory-teamflow.send-message', \Techsfactory\TfactoryTeamflow\Http\Livewire\SendMessage::class);
+        \Livewire\Livewire::component('tfactory-teamflow.send-message', \Techsfactory\TfactoryTeamflow\Http\Livewire\SendMessage::class);
             // Livewire::component('log-note', \Techsfactory\TfactoryTeamflow\Http\Livewire\LogNote::class);
             // Livewire::component('attachment-list', \Techsfactory\TfactoryTeamflow\Http\Livewire\AttachmentList::class);
             // Livewire::component('chatter-tabs', \Techsfactory\TfactoryTeamflow\Http\Livewire\ChatterTabs::class);
-        }
     }
 }
