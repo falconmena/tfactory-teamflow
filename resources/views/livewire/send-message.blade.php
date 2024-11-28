@@ -1,4 +1,3 @@
-@livewireStyles
 <div>
     @if (session()->has('success'))
         <div class="alert alert-success">
@@ -27,4 +26,3 @@
         <button type="submit" class="btn btn-primary">Send Message</button>
     </form>
 </div>
-@livewireScripts
