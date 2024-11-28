@@ -16,7 +16,6 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
             ->name('tfactory-teamflow')
             ->hasConfigFile()
             ->hasViews()
-            ->hasMigration('create_tfactory_teamflow_table')
             ->hasCommand(TfactoryTeamflowCommand::class)
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
