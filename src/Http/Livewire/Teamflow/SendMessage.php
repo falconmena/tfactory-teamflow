@@ -58,7 +58,7 @@ class SendMessage extends Component
 
     public function render()
     {
-        return view('livewire.send-message');
+        return view('tfactory-teamflow::livewire.send-message');
     }
 
     private function detectNotableEntity()
