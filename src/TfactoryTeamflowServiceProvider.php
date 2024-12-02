@@ -2,14 +2,23 @@
 
 namespace Techsfactory\TfactoryTeamflow;
 
+use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Techsfactory\TfactoryTeamflow\Commands\TfactoryTeamflowCommand;
 use Livewire\Livewire;
+use Techsfactory\TfactoryTeamflow\Services\LivewireService;
 
 class TfactoryTeamflowServiceProvider extends PackageServiceProvider
 {
+    protected LivewireService $livewireService;
+
+    public function __construct($app)
+    {
+        parent::__construct($app);
+        $this->livewireService = new LivewireService();
+    }
     public function configurePackage(Package $package): void
     {
         $package
@@ -29,7 +38,10 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
-        $this->registerLivewireComponents();
+        if ($this->livewireService->isLivewireInstalled()) {
+            $this->livewireService->registerComponents();
+            $this->registerLivewireDirectives();
+        }
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'tfactory-teamflow');
 
@@ -46,11 +58,10 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
         ], 'tfactory-teamflow-views');
     }
 
-    protected function registerLivewireComponents()
+    protected function registerLivewireDirectives(): void
     {
-        \Livewire\Livewire::component('tfactory-teamflow.send-message', \Techsfactory\TfactoryTeamflow\Http\Livewire\SendMessage::class);
-            // Livewire::component('log-note', \Techsfactory\TfactoryTeamflow\Http\Livewire\LogNote::class);
-            // Livewire::component('attachment-list', \Techsfactory\TfactoryTeamflow\Http\Livewire\AttachmentList::class);
-            // Livewire::component('chatter-tabs', \Techsfactory\TfactoryTeamflow\Http\Livewire\ChatterTabs::class);
+        Blade::directive('tfactoryTeamflowScripts', function () {
+            return "<?php echo view('tfactory-teamflow::scripts')->render(); ?>";
+        });
     }
 }
