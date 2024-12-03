@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('tfactory_teamflow_attachments', function (Blueprint $table) {
+        Schema::create('tf_teamflow_attachments', function (Blueprint $table) {
             $table->id();
             $table->morphs('attachable'); 
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
