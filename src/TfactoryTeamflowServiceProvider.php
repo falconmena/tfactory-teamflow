@@ -2,13 +2,15 @@
 
 namespace Techsfactory\TfactoryTeamflow;
 
-use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Livewire\Livewire;
+use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
+use Messagebox\Components\SendMessageBoxComponent;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Techsfactory\TfactoryTeamflow\Commands\TfactoryTeamflowCommand;
 use Livewire\Livewire;
-use Techsfactory\TfactoryTeamflow\Services\LivewireService;
 
 class TfactoryTeamflowServiceProvider extends PackageServiceProvider
 {
@@ -38,10 +40,7 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
-        if ($this->livewireService->isLivewireInstalled()) {
-            $this->livewireService->registerComponents();
-            $this->registerLivewireDirectives();
-        }
+        $this->registerLivewireComponents();
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'tfactory-teamflow');
 
@@ -58,10 +57,12 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
         ], 'tfactory-teamflow-views');
     }
 
-    protected function registerLivewireDirectives(): void
+    protected function registerLivewireComponents()
     {
-        Blade::directive('tfactoryTeamflowScripts', function () {
-            return "<?php echo view('tfactory-teamflow::scripts')->render(); ?>";
-        });
+        Blade::component('tfactory-teamflow::send-message', SendMessageBoxComponent::class);
+        // \Livewire\Livewire::component('TfactoryTeamflow::send-message', \Techsfactory\TfactoryTeamflow\Http\Livewire\SendMessage::class);
+        // Livewire::component('log-note', \Techsfactory\TfactoryTeamflow\Http\Livewire\LogNote::class);
+        // Livewire::component('attachment-list', \Techsfactory\TfactoryTeamflow\Http\Livewire\AttachmentList::class);
+        // Livewire::component('chatter-tabs', \Techsfactory\TfactoryTeamflow\Http\Livewire\ChatterTabs::class);
     }
 }
