@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Techsfactory\TfactoryTeamflow\Models\Note;
 
-class SendMessageController extends Controller
+class MessageController extends Controller
 {
     public function index(Request $request)
     {
