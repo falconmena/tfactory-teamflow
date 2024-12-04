@@ -49,10 +49,5 @@ class MessageController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Message sent successfully!');
-
-        // return redirect()->route('teamflow.sendMessage', [
-        //     'notableType' => $request->notableType,
-        //     'notableId' => $request->notableId,
-        // ])->with('success', 'Message sent successfully!');
     }
 }
