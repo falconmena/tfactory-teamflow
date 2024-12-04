@@ -41,9 +41,7 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'tfactory-teamflow');
 
-        Route::group(['namespace' => 'Falconmena\TfactoryTeamflow\Http\Controllers'], function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
-        });
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
