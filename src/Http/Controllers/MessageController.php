@@ -11,23 +11,24 @@ class MessageController extends Controller
 {
     public function index(Request $request)
     {
+        $data = [];
         // Get route parameters (notableType and notableId)
         $routeParams = Route::current()->parameters();
-        $notableType = $request->input('notableType', $routeParams['notableType'] ?? null);
-        $notableId = $request->input('notableId', $routeParams['notableId'] ?? null);
+        $data['notableType'] = $request->input('notableType', $routeParams['notableType'] ?? null);
+        $data['notableId'] = $request->input('notableId', $routeParams['notableId'] ?? null);
 
-        if (!$notableType || !$notableId) {
+        if (!$data['notableType'] || !$data['notableId']) {
             throw new \Exception("Notable entity type and ID are required.");
         }
 
         // Get all messages related to the notable entity
-        $messages = Note::where('notable_type', $notableType)
-            ->where('notable_id', $notableId)
+        $data['messages'] = Note::where('notable_type', $data['notableType'])
+            ->where('notable_id', $data['notableId'])
             ->where('type', 'message')
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('tfactory-teamflow::send-message', compact('messages', 'notableType', 'notableId'));
+        return view('tfactory-teamflow::message', $data);
     }
 
     public function send(Request $request)
@@ -47,9 +48,11 @@ class MessageController extends Controller
             'notable_id' => $request->notableId,
         ]);
 
-        return redirect()->route('teamflow.sendMessage', [
-            'notableType' => $request->notableType,
-            'notableId' => $request->notableId,
-        ])->with('success', 'Message sent successfully!');
+        return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
+
+        // return redirect()->route('teamflow.sendMessage', [
+        //     'notableType' => $request->notableType,
+        //     'notableId' => $request->notableId,
+        // ])->with('success', 'Message sent successfully!');
     }
 }
