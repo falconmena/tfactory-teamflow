@@ -39,9 +39,11 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
-        $this->registerLivewireComponents();
-
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'tfactory-teamflow');
+
+        Route::group(['namespace' => 'Falconmena\TfactoryTeamflow\Http\Controllers'], function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/routes.php');
+        });
 
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
@@ -54,14 +56,5 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/views' => resource_path('views/vendor/tfactory-teamflow'),
         ], 'tfactory-teamflow-views');
-    }
-
-    protected function registerLivewireComponents()
-    {
-        Blade::component('tfactory-teamflow::send-message', SendMessageBoxComponent::class);
-        // \Livewire\Livewire::component('TfactoryTeamflow::send-message', \Techsfactory\TfactoryTeamflow\Http\Livewire\SendMessage::class);
-        // Livewire::component('log-note', \Techsfactory\TfactoryTeamflow\Http\Livewire\LogNote::class);
-        // Livewire::component('attachment-list', \Techsfactory\TfactoryTeamflow\Http\Livewire\AttachmentList::class);
-        // Livewire::component('chatter-tabs', \Techsfactory\TfactoryTeamflow\Http\Livewire\ChatterTabs::class);
     }
 }
