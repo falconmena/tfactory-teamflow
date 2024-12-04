@@ -33,6 +33,7 @@ class MessageController extends Controller
 
     public function send(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'message' => 'required|string',
             'notableId' => 'required|integer',
@@ -48,7 +49,7 @@ class MessageController extends Controller
             'notable_id' => $request->notableId,
         ]);
 
-        return response()->json(['success' => true, 'message' => 'Message sent successfully!']);
+        return redirect()->back()->with('success', 'Message sent successfully!');
 
         // return redirect()->route('teamflow.sendMessage', [
         //     'notableType' => $request->notableType,
