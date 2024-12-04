@@ -1,5 +1,5 @@
 <div class="tab-pane" id="attachments" role="tabpanel">
-    <form class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" teamflow-data-dropzone-attachment="teamflow-data-dropzone-attachment"
+    <form class="dropzone dropzone-multiple p-0" id="teamflow-data-dropzone-attachment"
         action="{{ route('teamflow.attachment.store') }}" method="POST">
         @csrf
         <input type="hidden" name="attachable_id" value="{{ $attachable_id }}">
