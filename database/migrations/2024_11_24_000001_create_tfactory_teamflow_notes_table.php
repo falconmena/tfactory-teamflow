@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('tfactory_teamflow_notes', function (Blueprint $table) {
+        Schema::create('tf_teamflow_notes', function (Blueprint $table) {
             $table->id();
             $table->morphs('notable');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
@@ -18,6 +18,6 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::dropIfExists('tfactory_teamflow_notes');
+        Schema::dropIfExists('tf_teamflow_notes');
     }
 };

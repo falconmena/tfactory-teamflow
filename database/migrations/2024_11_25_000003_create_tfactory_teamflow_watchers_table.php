@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('tfactory_teamflow_watchers', function (Blueprint $table) {
+        Schema::create('tf_teamflow_watchers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->morphs('watchable');
@@ -16,6 +16,6 @@ return new class extends Migration {
 
     public function down()
     {
-        Schema::dropIfExists('tfactory_teamflow_watchers');
+        Schema::dropIfExists('tf_teamflow_watchers');
     }
 };
