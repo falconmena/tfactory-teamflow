@@ -1,7 +1,11 @@
 <div class="tab-pane" id="attachments" role="tabpanel">
     <form class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" data-dropzone="data-dropzone"
         action="{{ route('teamflow.attachment.store') }}">
-        <div class="fallback"><input name="file" type="file" multiple="multiple" /></div>
+        <input type="hidden" name="attachable_id" value="{{ $attachable_id }}">
+        <input type="hidden" name="attachable_type" value="{{ $attachable_type }}">
+        <div class="fallback">
+            <input name="file" type="file" multiple="multiple" />
+        </div>
         <div class="dz-message" data-dz-message="data-dz-message"> 
             <img class="me-2" src="../../../assets/img/icons/cloud-upload.svg" width="25" alt="" />
             Drop your files here
