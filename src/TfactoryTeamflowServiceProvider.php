@@ -39,7 +39,7 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
     {
         parent::boot();
 
-        $this->registerLivewireComponents();
+        // $this->registerLivewireComponents();
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'tfactory-teamflow');
 
