@@ -43,7 +43,7 @@ class MessageController extends Controller
         Note::create([
             'type' => 'message',
             'content' => $request->message,
-            'created_by' => Auth::id(),
+            'created_by' => $request->created_by,
             'notable_type' => $request->notableType,
             'notable_id' => $request->notableId,
         ]);
