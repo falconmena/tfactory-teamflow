@@ -33,7 +33,6 @@ class MessageController extends Controller
 
     public function send(Request $request)
     {
-        dd($request->all());
         $request->validate([
             'message' => 'required|string',
             'notableId' => 'required|integer',
