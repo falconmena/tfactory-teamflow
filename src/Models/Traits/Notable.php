@@ -1,5 +1,5 @@
 <?php
-namespace Techsfactory\TfactoryTeamflow\Models;
+namespace Techsfactory\TfactoryTeamflow\Models\Traits;
 
 Trait Notable
 {
