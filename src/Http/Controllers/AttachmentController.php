@@ -32,6 +32,7 @@ class AttachmentController extends Controller
 
     public function store(Request $request)
     {
+        dd($request);
         $request->validate([
             'attachment' => 'required|file',
             'attachable_id' => 'required|integer',

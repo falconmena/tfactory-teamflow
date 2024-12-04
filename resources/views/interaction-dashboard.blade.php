@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div class="card p-4 mx-2 my-4">
     <div class="card-body">
         <div class="d-md-flex justify-content-between">
             <div>
@@ -79,7 +79,7 @@
                     {{-- <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3"><small>8:40 AM (9 hours ago)</small><span class="fas fa-star text-warning fs--1 ms-2"></span></div> --}}
                 </div>
             </div>
-            @include('tfactory-teamflow::attachment')
+            @include('tfactory-teamflow::attachment', ['attachable_type' => $types, 'attachable_id' => $id])
         </div>
         <div class="recent-comments py-3 px-2">
             <div class="row">
