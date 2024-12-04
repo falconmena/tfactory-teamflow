@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Note extends Model
 {
-    protected $table = 'tfactory_teamflow_notes';
+    protected $table = 'tf_teamflow_notes';
     protected $fillable = ['notable_id', 'notable_type', 'created_by', 'type', 'content'];
 
     public function notable()
