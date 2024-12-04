@@ -15,8 +15,8 @@
         <div class="col-12 mt-3 mb-2">
             <form action="{{ route('teamflow.message.store') }}" method="POST">
                 @csrf
-                <input type="hidden" value="message" name="notableType">
-                <input type="hidden" value="1" name="notableId">
+                <input type="hidden" value="{{ $type }}" name="notableType">
+                <input type="hidden" value="{{ $id }}" name="notableId">
                 <input type="hidden" value="{{ auth('admin')->user()->id }}" name="created_by">
                 <p class="text-warning fs--2 mb-2">To: Followers of "[T7805] Test Case Round one"</p>
                 <textarea class="tinymce d-none fs--1 border" data-tinymce="data-tinymce" name="message"></textarea>
