@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attachment extends Model
 {
-    protected $table = 'tfactory_teamflow_attachments';
+    protected $table = 'tf_teamflow_attachments';
     protected $fillable = ['media_type', 'media_path'];
 
     public function attachable()
