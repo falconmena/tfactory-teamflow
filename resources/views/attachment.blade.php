@@ -1,6 +1,7 @@
 <div class="tab-pane" id="attachments" role="tabpanel">
     <form class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" data-dropzone="data-dropzone"
-        action="{{ route('teamflow.attachment.store') }}">
+        action="{{ route('teamflow.attachment.store') }}" method="POST">
+        @csrf
         <input type="hidden" name="attachable_id" value="{{ $attachable_id }}">
         <input type="hidden" name="attachable_type" value="{{ $attachable_type }}">
         <div class="fallback">
@@ -36,5 +37,6 @@
                 </div>
             </div>
         </div>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
