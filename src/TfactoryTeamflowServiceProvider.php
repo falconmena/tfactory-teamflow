@@ -44,6 +44,10 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         $this->publishes([
+            __DIR__ . '/../public/js' => public_path('vendor/tfactory-teamflow/js'),
+        ], 'teamflow-assets');
+        
+        $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
         ], 'tfactory-teamflow-migrations');
 
