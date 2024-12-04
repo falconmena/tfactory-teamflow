@@ -2,23 +2,18 @@
 
 namespace Techsfactory\TfactoryTeamflow;
 
-use Livewire\Livewire;
 use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Messagebox\Components\SendMessageBoxComponent;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Techsfactory\TfactoryTeamflow\Services\LivewireService;
 use Techsfactory\TfactoryTeamflow\Commands\TfactoryTeamflowCommand;
 
 class TfactoryTeamflowServiceProvider extends PackageServiceProvider
 {
-    protected LivewireService $livewireService;
-
     public function __construct($app)
     {
         parent::__construct($app);
-        $this->livewireService = new LivewireService();
     }
     public function configurePackage(Package $package): void
     {
@@ -45,7 +40,7 @@ class TfactoryTeamflowServiceProvider extends PackageServiceProvider
 
         $this->publishes([
             __DIR__ . '/../public/js' => public_path('vendor/tfactory-teamflow/js'),
-        ], 'teamflow-assets');
+        ], 'tfactory-teamflow-assets');
         
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('migrations'),
