@@ -1,5 +1,5 @@
 <?php 
-namespace Falconmena\TfactoryTeamflow\Http\Controllers;
+namespace TfactoryTeamflow\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
