@@ -5,10 +5,10 @@
                 <img class="rounded-circle" src="../../assets/img/team/1.jpg" alt="" />
             </div>
             <div class="flex-1 ms-2">
-                <h6 class="mb-0 fs-0">Tasneem Aldirini</h6>
+                <h6 class="mb-0 fs-0">{{ $user->first_name }} {{ $user->last_name }}</h6>
                 <a class="text-800 fs--1" href="#!">
-                    <span class="fw-semi-bold">Sales</span>
-                    <span class="ms-1 text-500">&lt;t.dirini@techs.com&gt;</span>
+                    <span class="fw-semi-bold">{{ $user->roles->pluck('name')->first() }}</span>
+                    <span class="ms-1 text-500">{{ $user->email }}</span>
                 </a>
             </div>
         </div>

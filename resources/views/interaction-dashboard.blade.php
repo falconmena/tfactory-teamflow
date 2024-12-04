@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="tab-content pt-4" id="nav-tabContent">
-            @include('tfactory-teamflow::message', ['type' => $type, 'id' => $id])
+            @include('tfactory-teamflow::message', ['type' => $type, 'id' => $id, 'user' => $user])
             @include('tfactory-teamflow::attachment', ['attachable_type' => $types, 'attachable_id' => $id])
         </div>
         <div class="recent-comments py-3 px-2">
