@@ -29,6 +29,9 @@ const dropzoneInit = () => {
     const dropzoneElement = document.querySelector("#teamflow-data-dropzone-attachment");
     if (dropzoneElement.dropzone) return; // Skip if already initialized
 
+    let attachable_id = document.querySelector('input[name="attachable_id"]').value;
+    let attachable_type = document.querySelector('input[name="attachable_type"]').value;
+    let created_by = document.querySelector('input[name="created_by"]').value;
     const myDropzone = new Dropzone(dropzoneElement, {
         url: dropzoneElement.action,
         method: "POST",
@@ -54,9 +57,9 @@ const dropzoneInit = () => {
 
             this.on("sending", function (file, xhr, formData) {
                 // Append additional data to the request
-                formData.append("attachable_id", document.querySelector('input[name="attachable_id"]').value);
-                formData.append("attachable_type", document.querySelector('input[name="attachable_type"]').value);
-                formData.append("created_by", document.querySelector('input[name="created_by"]').value);
+                formData.append("attachable_id", attachable_id);
+                formData.append("attachable_type", attachable_type);
+                formData.append("created_by", created_by);
             });
 
             this.on("queuecomplete", function () {
@@ -70,9 +73,10 @@ const dropzoneInit = () => {
     });
 
     // Fetch recently uploaded files
-    fetch("/teamflow/attachments/recent")
+    fetch(`/teamflow/attachments/recent?attachable_id=${attachable_id}&attachable_type=${attachable_type}`)
         .then((response) => response.json())
         .then((files) => {
+            console.log(files);
             files.forEach((file) => {
                 const mockFile = { name: file.name, size: file.size };
 
