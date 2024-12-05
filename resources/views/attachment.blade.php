@@ -4,6 +4,7 @@
         @csrf
         <input type="hidden" name="attachable_id" value="{{ $attachable_id }}">
         <input type="hidden" name="attachable_type" value="{{ $attachable_type }}">
+        <input type="hidden" name="created_by" value="{{ $user->id }}">
         <div class="fallback">
             <input name="file" type="file" multiple="multiple" />
         </div>

@@ -49,11 +49,11 @@ class AttachmentController extends Controller
             'attachable_type' => 'required|string',
         ]);
 
-        $attachment = $request->file('attachment');
+        $attachment = $request->file('file');
         $attachment_path = '';
         $attachment_type = '';
 
-        if ($request->hasFile('attachment') && $attachment->isValid()) {
+        if ($request->hasFile('file') && $attachment->isValid()) {
             $attachmenttype = $attachment->getClientOriginalExtension();
             $attachmentName = time() . '-' . $attachment->getClientOriginalExtension();
             $savePath = '/public/tfactory-teamflow/attachments/';
@@ -62,18 +62,10 @@ class AttachmentController extends Controller
             Storage::putFileAs($savePath, $attachment, $attachmentName);
         }
 
-        $activeGuard = $this->getLoggedInGuard();
-        dd(auth()->guard('admin')->user());
-        if ($activeGuard) {
-            $userId = auth()->guard($guard)->id();
-        } else {
-            $userId = Auth::id();
-        }
-
         $attachment = Attachment::create([
             'media_type' => 'message',
             'media_path' => $attachment_path,
-            'created_by' => $userId,
+            'created_by' => Auth::id(),
             'attachable_type' => $request->attachable_type,
             'attachable_id' => $request->attachable_id,
         ]);
@@ -101,17 +93,5 @@ class AttachmentController extends Controller
         $attachment->delete();
 
         return response()->json(['message' => 'File deleted successfully']);
-    }
-
-    function getLoggedInGuard()
-    {
-        foreach (config('auth.guards') as $guard => $guardConfig) {
-            if (auth()->guard($guard)->user()) {
-                dd($guard);
-                return $guard; // Return the name of the active guard
-            }
-        }
-
-        return null; // No guard is logged in
     }
 }

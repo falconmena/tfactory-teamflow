@@ -57,6 +57,7 @@ const dropzoneInit = () => {
                 // Append additional data to the request
                 formData.append("attachable_id", document.querySelector('input[name="attachable_id"]').value);
                 formData.append("attachable_type", document.querySelector('input[name="attachable_type"]').value);
+                formData.append("created_by", document.querySelector('input[name="created_by"]').value);
             });
 
             this.on("queuecomplete", function () {
