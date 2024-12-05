@@ -5,16 +5,6 @@ use Techsfactory\TfactoryTeamflow\Models\Note;
 
 Trait Notable
 {
-    public function sendMessage()
-    {
-        Note::create([
-            'type' => 'message',
-            'content' => request()->message,
-            'created_by' => request()->created_by ?? auth()->id(),
-            'notable_type' => self::class,
-            'notable_id' => $this->id,
-        ]);
-    }
     public function messages()
     {
         return Note::query()
@@ -29,5 +19,13 @@ Trait Notable
                 ->where('notable_type','=',self::class)
                 ->where('type','=','note')
                 ->where('notable_id','=',$this->id);
+    }
+
+    public function logs()
+    {
+        return Note::query()
+                ->where('notable_type','=',self::class)
+                ->where('notable_id','=',$this->id)
+                ->orderBy('created_at', 'desc');
     }
 }

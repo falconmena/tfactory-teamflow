@@ -36,7 +36,7 @@
             @include('tfactory-teamflow::attachment', ['attachable_type' => $type, 'attachable_id' => $id])
         </div>
         <div class="recent-comments py-3 px-2">
-            @include('tfactory-teamflow::comment', ['type' => $type, 'id' => $id])
+            @include('tfactory-teamflow::logs', ['type' => $type, 'id' => $id])
         </div>
     </div>
 </div>
