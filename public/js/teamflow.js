@@ -24,7 +24,7 @@ $(document).ready(function () {
         success: function(response) {
             // Assuming `response` contains the data you need to render
             console.log(' Logs: ', response);
-            // renderLogs(response);
+            renderLogs(response);
         },
         error: function(xhr, status, error) {
             console.error("An error occurred: ", error);
