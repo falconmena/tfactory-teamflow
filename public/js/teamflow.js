@@ -58,14 +58,18 @@ const dropzoneInit = () => {
 
     !!dropzones.length &&
         dropzones.forEach((item) => {
-            let userOptions = utils.getData(item, DATA_KEY.OPTIONS);
             let data = {};
+            let token = $('meta[name="csrf-token"]').attr('content');
 
             $.ajax({
-                type: "get",
                 url: "/teamflow/attachments/recent",
+                type: 'GET',
+                data: {
+                    _token: token
+                },
                 success: function (response) {
                     data = response;
+                    console.log(response);
                 }
             });
 
