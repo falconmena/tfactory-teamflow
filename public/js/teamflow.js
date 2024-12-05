@@ -19,4 +19,25 @@ $(document).ready(function () {
             }
         });
     });
+
+    //render logs
+    $('#logs').on('load', function (e) {
+        e.preventDefault();
+        const formData = {
+            data: [$('#notable').attr('data-notable-id'), $('#notable').attr('data-notable-type')],
+            _token: $('meta[name="csrf-token"]').attr('content'), // CSRF token for security
+        };
+
+        $.ajax({
+            url: $(this).attr('data-action'),
+            type: "POST",
+            data: formData,
+            success: function (response) {
+                alert('Data loaded successfully: ' + response.message);
+            },
+            error: function (xhr) {
+                alert('An error occurred: ' + xhr.responseText);
+            }
+        });
+    });
 });

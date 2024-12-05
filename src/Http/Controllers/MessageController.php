@@ -9,26 +9,17 @@ use Techsfactory\TfactoryTeamflow\Models\Note;
 
 class MessageController extends Controller
 {
-    public function index(Request $request)
+
+    public function get_logs($notableId)
     {
-        $data = [];
-        // Get route parameters (notableType and notableId)
-        $routeParams = Route::current()->parameters();
-        $data['notableType'] = $request->input('notableType', $routeParams['notableType'] ?? null);
-        $data['notableId'] = $request->input('notableId', $routeParams['notableId'] ?? null);
-
-        if (!$data['notableType'] || !$data['notableId']) {
-            throw new \Exception("Notable entity type and ID are required.");
-        }
-
-        // Get all messages related to the notable entity
-        $data['messages'] = Note::where('notable_type', $data['notableType'])
-            ->where('notable_id', $data['notableId'])
-            ->where('type', 'message')
+        $logs = Note::select()
+            ->where('notable_type', self::class)
+            ->where('notable_id', $notableId)
             ->orderBy('created_at', 'desc')
+            ->with('creator')
             ->get();
 
-        return view('tfactory-teamflow::message', $data);
+        return $logs;
     }
 
     public function send(Request $request)
