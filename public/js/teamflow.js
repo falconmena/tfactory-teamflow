@@ -1,7 +1,6 @@
 $(document).ready(function () {
     // Init dropzone
     dropzoneInit();
-    getRecentAttachments();
 
     $('#teamflowForm').on('submit', function (e) {
         e.preventDefault();
@@ -37,6 +36,7 @@ const dropzoneInit = () => {
         autoProcessQueue: false, // Prevent automatic upload
         parallelUploads: 10, // Number of files processed in parallel
         maxFilesize: 20, // Max size in MB
+        addRemoveLinks: true,
         headers: {
             "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
         },
@@ -75,6 +75,7 @@ const dropzoneInit = () => {
         .then((response) => response.json())
         .then((files) => {
             files.forEach((file) => {
+                console.log(files);
                 const mockFile = { name: file.name, size: file.size };
 
                 // Add the file to Dropzone

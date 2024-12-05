@@ -12,6 +12,16 @@
             <img class="me-2" src="../../../assets/img/icons/cloud-upload.svg" width="25" alt="" />
             Drop your files here
         </div>
+        <div class="dz-preview dz-file-preview">
+            <div class="dz-details">
+                <img data-dz-thumbnail />
+                <div class="dz-filename"><span data-dz-name></span></div>
+                <div class="dz-size" data-dz-size></div>
+            </div>
+            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+            <div class="dz-error-message"><span data-dz-errormessage></span></div>
+            <div class="dz-remove" data-dz-remove>Remove File</div>
+        </div>
     </form>
     <div class="w-100 text-center my-3">
         <h5 class="mt-2 mb-4 text-center">Recent Attachments</h5>

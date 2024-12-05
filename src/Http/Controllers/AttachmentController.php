@@ -56,7 +56,7 @@ class AttachmentController extends Controller
         
         if ($request->hasFile('file') && $attachment->isValid()) {
             $attachment_type = $attachment->getClientOriginalExtension();
-            $attachmentName = time() . '-' . $attachment_type;
+            $attachmentName = time() . '.' . $attachment_type;
             $savePath = '/public/tfactory-teamflow/attachments/';
             $imgPath = '/storage/tfactory-teamflow/attachments/';
             $attachment_path = $imgPath . $attachmentName;
