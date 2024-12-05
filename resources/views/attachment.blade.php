@@ -11,8 +11,9 @@
             <img class="me-2" src="../../../assets/img/icons/cloud-upload.svg" width="25" alt="" />
             Drop your files here
         </div>
-        <div class="w-100 text-center my-3">
-            <h5 class="mt-2 mb-4 text-center">Recent Attachments</h5>
-        </div>
     </form>
+    <div class="w-100 text-center my-3">
+        <h5 class="mt-2 mb-4 text-center">Recent Attachments</h5>
+        <div id="teamflow-recent-attachments"></div>
+    </div>
 </div>

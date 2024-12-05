@@ -1,6 +1,7 @@
 $(document).ready(function () {
     // Init dropzone
     dropzoneInit();
+    getRecentAttachments();
 
     $('#teamflowForm').on('submit', function (e) {
         e.preventDefault();
@@ -66,5 +67,46 @@ const dropzoneInit = () => {
                 alert(`Error uploading file: ${errorMessage}`);
             });
         },
+    });
+
+    // Fetch recently uploaded files
+    fetch("/teamflow/attachments/recent")
+        .then((response) => response.json())
+        .then((files) => {
+            files.forEach((file) => {
+                const mockFile = { name: file.name, size: file.size };
+
+                // Add the file to Dropzone
+                myDropzone.emit("addedfile", mockFile);
+                myDropzone.emit("thumbnail", mockFile, file.url); // Set preview image
+                myDropzone.emit("complete", mockFile); // Mark file as complete
+
+                // Optional: Set custom properties for future use
+                mockFile.previewElement.querySelector(".dz-remove").dataset.fileId = file.id;
+            });
+        })
+        .catch((error) => {
+            console.error("Error fetching recent files:", error);
+        });
+
+    // Handle file removal
+    myDropzone.on("removedfile", function (file) {
+        // Optional: Perform an AJAX request to delete the file
+        const fileId = file.previewElement.querySelector(".dz-remove").dataset.fileId;
+        if (fileId) {
+            fetch(`/teamflow/attachments/delete/${fileId}`, {
+                method: "DELETE",
+                headers: {
+                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(`File deleted: ${file.name}`);
+                })
+                .catch((error) => {
+                    console.error("Error deleting file:", error);
+                });
+        }
     });
 };
