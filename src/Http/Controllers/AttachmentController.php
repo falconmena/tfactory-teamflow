@@ -62,10 +62,17 @@ class AttachmentController extends Controller
             Storage::putFileAs($savePath, $attachment, $attachmentName);
         }
 
+        $activeGuard = getLoggedInGuard();
+        if ($activeGuard) {
+            $userId = Auth::guard($activeGuard)->id(); // Get the logged-in user's ID
+        } else {
+            $userId = Auth::id();
+        }
+
         $attachment = Attachment::create([
             'media_type' => 'message',
             'media_path' => $attachment_path,
-            'created_by' => Auth::id(),
+            'created_by' => $userId,
             'attachable_type' => $request->attachable_type,
             'attachable_id' => $request->attachable_id,
         ]);
@@ -93,5 +100,16 @@ class AttachmentController extends Controller
         $attachment->delete();
 
         return response()->json(['message' => 'File deleted successfully']);
+    }
+
+    function getLoggedInGuard()
+    {
+        foreach (config('auth.guards') as $guard => $guardConfig) {
+            if (Auth::guard($guard)->check()) {
+                return $guard; // Return the name of the active guard
+            }
+        }
+
+        return null; // No guard is logged in
     }
 }
