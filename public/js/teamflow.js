@@ -55,15 +55,13 @@ $(document).ready(function () {
             alert("Failed to load logs. Please try again later.");
         }
     });
-    
+
     $('#teamflow_schedule_activity').on('click', function (event) {
         event.preventDefault();
 
-        // Collect form data
-        var formData = $('#teamflow_activity_form').serialize();
-
-        // Get the form action URL
-        var formAction = $('#teamflow_activity_form').attr('action');
+        var form = $('#teamflow_activity_form');
+        var formData = new FormData(form[0]);
+        var formAction = form.attr('action');
 
         $.ajax({
             url: formAction,

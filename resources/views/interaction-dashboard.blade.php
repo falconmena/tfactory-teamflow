@@ -1,5 +1,5 @@
 <div class="card p-4 mx-2 my-4">
-    <div id="teamflow_activity_form"></div>
+    <div id="teamflow_activity_form_response"></div>
     <div class="card-body">
         <div class="d-md-flex justify-content-between">
             <div>
