@@ -62,12 +62,16 @@ const dropzoneInit = () => {
             let token = $('meta[name="csrf-token"]').attr('content');
             let recents_url = $(Selector.DROPZONE).data('data-recent-route');
             console.log(recents_url);
-            
+            let attachable_id = document.querySelector('input[name="attachable_id"]').value;
+            let attachable_type = document.querySelector('input[name="attachable_type"]').value;
+            let created_by = document.querySelector('input[name="created_by"]').value;
             $.ajax({
                 url: recents_url,
                 type: 'GET',
                 data: {
-                    _token: token
+                    _token: token,
+                    attachable_id,
+                    attachable_type
                 },
                 success: function (response) {
                     data = response;
@@ -96,6 +100,13 @@ const dropzoneInit = () => {
                     filesizeBase: 1000,
                     init: function init() {
                         const thisDropzone = this;
+
+                        thisDropzone.on("sending", function (file, xhr, formData) {
+                            // Append additional data to the request
+                            formData.append("attachable_id", document.querySelector('input[name="attachable_id"]').value);
+                            formData.append("attachable_type", document.querySelector('input[name="attachable_type"]').value);
+                            formData.append("created_by", document.querySelector('input[name="created_by"]').value);
+                        });
 
                         if (data.length) {
                             data.forEach((v) => {
