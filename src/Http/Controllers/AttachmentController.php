@@ -63,7 +63,7 @@ class AttachmentController extends Controller
         }
 
         $activeGuard = $this->getLoggedInGuard();
-        dd($activeGuard);
+        dd(Auth::guard('admin')->check());
         if ($activeGuard) {
             $userId = Auth::guard($activeGuard)->id(); // Get the logged-in user's ID
         } else {
@@ -107,7 +107,6 @@ class AttachmentController extends Controller
     {
         foreach (config('auth.guards') as $guard => $guardConfig) {
             if (Auth::guard($guard)->check()) {
-                dd($guard);
                 return $guard; // Return the name of the active guard
             }
         }
