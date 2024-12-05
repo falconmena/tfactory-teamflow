@@ -41,7 +41,7 @@ class ActivityController extends Controller
             'assigned_to' => 'required|integer|exists:users,id',
             'due_date' => ['required', 'regex:/^\d{4}-\d{2}-\d{2}$/'],
             'activity_type' => 'required',
-            'description' => 'required|string',
+            'content' => 'required|string',
         ]);
 
         $activityable_id = $request->input('activityable_id', $routeParams['activityable_id'] ?? null);
@@ -59,7 +59,7 @@ class ActivityController extends Controller
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'activity_type' => $request->activity_type,
-            'description' => $request->description,
+            'description' => $request->content,
         ]);
     }
 
