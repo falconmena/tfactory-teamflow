@@ -55,6 +55,29 @@ $(document).ready(function () {
             alert("Failed to load logs. Please try again later.");
         }
     });
+    
+    $('#teamflow_schedule_activity').on('click', function (event) {
+        event.preventDefault();
+
+        // Collect form data
+        var formData = $('#teamflow_activity_form').serialize();
+
+        // Get the form action URL
+        var formAction = $('#teamflow_activity_form').attr('action');
+
+        $.ajax({
+            url: formAction,
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                $('#teamflow_activity_form_response').html('<p>Activity Created successfully!</p>');
+            },
+            error: function (xhr, status, error) {
+                var errorMessage = xhr.responseJSON.message || 'An error occurred.';
+                $('#teamflow_activity_form_response').html('<p>' + errorMessage + '</p>');
+            }
+        });
+    });
 });
 
 // Attachment Dropzone
