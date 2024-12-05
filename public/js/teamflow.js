@@ -60,9 +60,11 @@ const dropzoneInit = () => {
         dropzones.forEach((item) => {
             let data = {};
             let token = $('meta[name="csrf-token"]').attr('content');
-
+            let recents_url = $(Selector.DROPZONE).data('data-recent-route');
+            console.log(recents_url);
+            
             $.ajax({
-                url: "/teamflow/attachments/recent",
+                url: recents_url,
                 type: 'GET',
                 data: {
                     _token: token
