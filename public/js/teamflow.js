@@ -43,6 +43,30 @@ $(document).ready(function () {
             }
         });
     });
+
+    //render logs
+    const container = $('#logs-container');
+    const type = container.data('type');
+    const id = container.data('id');
+    const route = container.data('route');
+
+    // Make an AJAX request when the page loads
+    $.ajax({
+        url: route, // The route URL from the data attribute
+        type: 'GET', // or 'POST' based on your route's requirement
+        data: {
+            type: type,
+            id: id
+        },
+        success: function(response) {
+            // Assuming `response` contains the data you need to render
+            renderLogs(response);
+        },
+        error: function(xhr, status, error) {
+            console.error("An error occurred: ", error);
+            alert("Failed to load logs. Please try again later.");
+        }
+    });
 });
 
 // Attachment Dropzone
@@ -138,3 +162,30 @@ const dropzoneInit = () => {
         }
     });
 };
+
+function renderLogs(data) {
+    // Assuming 'data' is an array of log objects
+    let logsHtml = '';
+
+    data.forEach(log => {
+        logsHtml += `
+            <div class="row my-2">
+                <div class="col-md d-flex">
+                    <div class="avatar avatar-xl">
+                        <img class="rounded-circle" src="${log.avatarUrl}" alt="" />
+                    </div>
+                    <div class="flex-1 ms-2">
+                        <h6 class="fs--1 mb-0">${log.name} <span class="ms-1 text-500 fs--2">&lt;${log.email}&gt;</span></h6>
+                        <p class="text-warning fs--2 mb-2">${log.position}</p>
+                        <h6 class="mb-0 fs--2">${log.activity}</h6>
+                    </div>
+                </div>
+                <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3"><small class="py-2">${log.timestamp}</small></div>
+            </div>
+            <hr>
+        `;
+    });
+
+    // Append the generated HTML to the appropriate section in the Blade template
+    $('#logs-container').html(logsHtml);
+}

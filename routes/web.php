@@ -6,7 +6,7 @@ Route::group(['prefix' => 'teamflow'], function () {
     Route::get('/get-message', [Techsfactory\TfactoryTeamflow\Http\Controllers\MessageController::class, 'index'])->name('teamflow.message.index');
     Route::post('/send-message', [Techsfactory\TfactoryTeamflow\Http\Controllers\MessageController::class, 'send'])->name('teamflow.message.store');
     
-    Route::post('/get-logs', [Techsfactory\TfactoryTeamflow\Http\Controllers\MessageController::class, 'get_logs'])->name('teamflow.logs.get');
+    Route::post('/get-logs/{id}/{type}', [Techsfactory\TfactoryTeamflow\Http\Controllers\MessageController::class, 'get_logs'])->name('teamflow.logs.get');
 
     Route::post('/attachments/store', [Techsfactory\TfactoryTeamflow\Http\Controllers\AttachmentController::class, 'store'])->name('teamflow.attachment.store');
     Route::get('/attachments/recent', [Techsfactory\TfactoryTeamflow\Http\Controllers\AttachmentController::class, 'getRecentFiles'])->name('teamflow.attachment.recent');

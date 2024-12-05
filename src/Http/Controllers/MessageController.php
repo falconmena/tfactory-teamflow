@@ -10,11 +10,11 @@ use Techsfactory\TfactoryTeamflow\Models\Note;
 class MessageController extends Controller
 {
 
-    public function get_logs($notableId)
+    public function get_logs($id, $type)
     {
         $logs = Note::select()
-            ->where('notable_type', self::class)
-            ->where('notable_id', $notableId)
+            ->where('notable_type', $type)
+            ->where('notable_id', $id)
             ->orderBy('created_at', 'desc')
             ->with('creator')
             ->get();
