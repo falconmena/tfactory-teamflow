@@ -62,7 +62,7 @@ class AttachmentController extends Controller
             Storage::putFileAs($savePath, $attachment, $attachmentName);
         }
 
-        $activeGuard = getLoggedInGuard();
+        $activeGuard = $this->getLoggedInGuard();
         if ($activeGuard) {
             $userId = Auth::guard($activeGuard)->id(); // Get the logged-in user's ID
         } else {
