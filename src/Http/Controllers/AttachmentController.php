@@ -104,9 +104,9 @@ class AttachmentController extends Controller
 
     function getLoggedInGuard()
     {
-        dd(config('auth.guards'));
         foreach (config('auth.guards') as $guard => $guardConfig) {
             if (Auth::guard($guard)->check()) {
+                dd($guard);
                 return $guard; // Return the name of the active guard
             }
         }
