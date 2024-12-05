@@ -11,7 +11,7 @@
                     <div class="rounded-top-3 pt-4 ps-4 pe-7 bg-body-tertiary">
                         <h5 class="mb-1" id="modalExampleDemoLabel">Schedule Activity</h5>
                     </div>
-                    <div id="teamflow_activity_error_response"></div>
+                    <div class="rounded-top-3 pt-4 ps-4 pe-7" id="teamflow_activity_error_response"></div>
                     <div class="p-4">
                         <div class="row">
                             <div class="col-12 col-lg-6 mb-3">

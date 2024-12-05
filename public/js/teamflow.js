@@ -75,17 +75,16 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 if (xhr.status === 422) {
                     var errors = xhr.responseJSON.errors;
-                    var errorMessages = '';
+                    var errorMessages = '<div class="alert alert-danger">';
 
                     // Loop through each error and display it
                     $.each(errors, function(field, messages) {
-                        // Append each error message to the errorMessages string
-                        errorMessages += '<p><strong>' + field + ':</strong><br>';
                         $.each(messages, function(index, message) {
-                            errorMessages += message + '<br>';
+                            errorMessages += '<span class="d-block">' + message + '</span>';
                         });
-                        errorMessages += '</p>';
                     });
+
+                    errorMessages += '</div>';
 
                     // Display the validation errors
                     $('#teamflow_activity_error_response').html(errorMessages);
