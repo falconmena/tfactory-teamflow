@@ -1,6 +1,7 @@
 $(document).ready(function () {
     // Init dropzone
     dropzoneInit();
+    getRecentAttachments();
 
     $('#teamflowForm').on('submit', function (e) {
         e.preventDefault();
@@ -27,6 +28,7 @@ $(document).ready(function () {
 // Attachment Dropzone
 const dropzoneInit = () => {
     const dropzoneElement = document.querySelector("#teamflow-data-dropzone-attachment");
+    if (dropzoneElement.dropzone) return; // Skip if already initialized
 
     const myDropzone = new Dropzone(dropzoneElement, {
         url: dropzoneElement.action,
@@ -35,7 +37,6 @@ const dropzoneInit = () => {
         autoProcessQueue: false, // Prevent automatic upload
         parallelUploads: 10, // Number of files processed in parallel
         maxFilesize: 20, // Max size in MB
-        addRemoveLinks: true,
         headers: {
             "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
         },
@@ -69,27 +70,6 @@ const dropzoneInit = () => {
         },
     });
 
-    // Fetch recently uploaded files
-    fetch("/teamflow/attachments/recent")
-        .then((response) => response.json())
-        .then((files) => {
-            files.forEach((file) => {
-                console.log(file);
-                const mockFile = { name: file.name, size: file.size };
-
-                // Add the file to Dropzone
-                myDropzone.emit("addedfile", mockFile);
-                myDropzone.emit("thumbnail", mockFile, file.url); // Set preview image
-                myDropzone.emit("complete", mockFile); // Mark file as complete
-
-                // Optional: Set custom properties for future use
-                mockFile.previewElement.querySelector(".dz-remove").dataset.fileId = file.id;
-            });
-        })
-        .catch((error) => {
-            console.error("Error fetching recent files:", error);
-        });
-
     // Handle file removal
     myDropzone.on("removedfile", function (file) {
         // Optional: Perform an AJAX request to delete the file
@@ -110,4 +90,26 @@ const dropzoneInit = () => {
                 });
         }
     });
+};
+
+const getRecentAttachments = () => {
+    // Fetch recently uploaded files
+    fetch("/teamflow/attachments/recent")
+        .then((response) => response.json())
+        .then((files) => {
+            files.forEach((file) => {
+                const mockFile = { name: file.name, size: file.size };
+
+                // Add the file to Dropzone
+                myDropzone.emit("addedfile", mockFile);
+                myDropzone.emit("thumbnail", mockFile, file.url); // Set preview image
+                myDropzone.emit("complete", mockFile); // Mark file as complete
+
+                // Optional: Set custom properties for future use
+                mockFile.previewElement.querySelector(".dz-remove").dataset.fileId = file.id;
+            });
+        })
+        .catch((error) => {
+            console.error("Error fetching recent files:", error);
+        });
 };
