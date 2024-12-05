@@ -27,6 +27,7 @@ $(document).ready(function () {
     const container = $('#logs-container');
     const type = container.data('type');
     const id = container.data('id');
+    const _token = container.data('token');
     const route = container.data('route');
 
     console.log('Type: ', type);
@@ -40,6 +41,9 @@ $(document).ready(function () {
         data: {
             type: type,
             id: id
+        },
+        headers: {
+            'X-CSRF-TOKEN': _token // Add CSRF token to the request headers
         },
         success: function(response) {
             // Assuming `response` contains the data you need to render

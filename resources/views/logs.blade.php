@@ -6,6 +6,7 @@
 <div id="logs-container" class="row my-2" 
      data-type="{{ $type }}" 
      data-id="{{ $id }}" 
+     data-token="{{ csrf_token() }}">
      data-route="{{ route('teamflow.logs.get', ['type' => $type, 'id' => $id]) }}">
      <div class="col-md d-flex">
         <div class="avatar avatar-xl">
