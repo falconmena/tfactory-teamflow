@@ -9,20 +9,13 @@ $(document).ready(function () {
     const _token = container.data('token');
     const route = container.data('route');
 
-    console.log('Type: ', type);
-    console.log('ID: ', id);
-    console.log('Token: ', _token);
-    console.log('Route: ', route);
-    
-    // Make an AJAX request when the page loads
     $.ajax({
-        url: route, // The route URL from the data attribute
-        type: 'GET', // or 'POST' based on your route's requirement
+        url: route,
+        type: 'GET',
         data: {
             _token: _token
         },
         success: function(response) {
-            // Assuming `response` contains the data you need to render
             console.log(' Logs: ', response);
             renderLogs(response);
         },
@@ -128,7 +121,6 @@ const dropzoneInit = () => {
 };
 
 function renderLogs(data) {
-    // Assuming 'data' is an array of log objects
     let logsHtml = '';
 
     data.forEach(log => {
@@ -141,15 +133,14 @@ function renderLogs(data) {
                     <div class="flex-1 ms-2">
                         <h6 class="fs--1 mb-0">${log.name} <span class="ms-1 text-500 fs--2">&lt;${log.email}&gt;</span></h6>
                         <p class="text-warning fs--2 mb-2">${log.position}</p>
-                        <h6 class="mb-0 fs--2">${log.activity}</h6>
+                        <h6 class="mb-0 fs--2">${log.content}</h6>
                     </div>
                 </div>
-                <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3"><small class="py-2">${log.timestamp}</small></div>
+                <div class="col-md-auto ms-auto d-flex align-items-center ps-6 ps-md-3"><small class="py-2">${log.created_at}</small></div>
             </div>
             <hr>
         `;
     });
 
-    // Append the generated HTML to the appropriate section in the Blade template
     $('#logs-container').html(logsHtml);
 }

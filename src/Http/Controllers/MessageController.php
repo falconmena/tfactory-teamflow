@@ -16,7 +16,6 @@ class MessageController extends Controller
             ->where('notable_type', $type)
             ->where('notable_id', $id)
             ->orderBy('created_at', 'desc')
-            ->with('creator')
             ->get();
 
         return $logs;
