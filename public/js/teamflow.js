@@ -73,8 +73,27 @@ $(document).ready(function () {
                 $('#teamflow_activity_form_response').html('<p>Activity Created successfully!</p>');
             },
             error: function (xhr, status, error) {
-                var errorMessage = xhr.responseJSON.message || 'An error occurred.';
-                $('#teamflow_activity_form_response').html('<p>' + errorMessage + '</p>');
+                if (xhr.status === 422) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorMessages = '';
+
+                    // Loop through each error and display it
+                    $.each(errors, function(field, messages) {
+                        // Append each error message to the errorMessages string
+                        errorMessages += '<p><strong>' + field + ':</strong><br>';
+                        $.each(messages, function(index, message) {
+                            errorMessages += message + '<br>';
+                        });
+                        errorMessages += '</p>';
+                    });
+
+                    // Display the validation errors
+                    $('#teamflow_activity_error_response').html(errorMessages);
+                } else {
+                    // Handle other types of errors
+                    var errorMessage = xhr.responseJSON.message || 'An error occurred.';
+                    $('#teamflow_activity_error_response').html('<p>' + errorMessage + '</p>');
+                }
             }
         });
     });
