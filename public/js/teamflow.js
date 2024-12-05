@@ -59,11 +59,21 @@ const dropzoneInit = () => {
     !!dropzones.length &&
         dropzones.forEach((item) => {
             let userOptions = utils.getData(item, DATA_KEY.OPTIONS);
-            userOptions = userOptions ? userOptions : {};
-            const data = userOptions.data ? userOptions.data : {};
+            let data = {};
+
+            $.ajax({
+                type: "get",
+                url: "/teamflow/attachments/recent",
+                success: function (response) {
+                    data = response;
+                }
+            });
+
+            console.log(data);
+
             const options = merge(
                 {
-                    url: dropzoneElement.action,
+                    url: item.action,
                     method: "POST",
                     paramName: "file",
                     headers: {
@@ -166,25 +176,6 @@ const dropzoneInit = () => {
 
                 item.classList.add(ClassName.DZ_FILE_COMPLETE);
             });
-        });
-
-    fetch("/teamflow/attachments/recent")
-        .then((response) => response.json())
-        .then((files) => {
-            files.forEach((file) => {
-                const mockFile = { name: file.name, size: file.size };
-
-                // Add the file to Dropzone
-                myDropzone.emit("addedfile", mockFile);
-                myDropzone.emit("thumbnail", mockFile, file.url); // Set preview image
-                myDropzone.emit("complete", mockFile); // Mark file as complete
-
-                // Optional: Set custom properties for future use
-                mockFile.previewElement.querySelector(".dz-remove").dataset.fileId = file.id;
-            });
-        })
-        .catch((error) => {
-            console.error("Error fetching recent files:", error);
         });
 };
 
