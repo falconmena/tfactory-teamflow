@@ -27,32 +27,6 @@ $(document).ready(function () {
 // Attachment Dropzone
 const dropzoneInit = () => {
     const dropzoneElement = document.querySelector("#teamflow-data-dropzone-attachment");
-    if (dropzoneElement.dropzone) return; // Skip if already initialized
-
-    const Selector = {
-        DROPZONE: "[data-dropzone]",
-        DZ_ERROR_MESSAGE: ".dz-error-message",
-        DZ_PREVIEW: ".dz-preview",
-        DZ_PROGRESS: ".dz-preview .dz-preview-cover .dz-progress",
-        DZ_PREVIEW_COVER: ".dz-preview .dz-preview-cover",
-    };
-
-    const ClassName = {
-        DZ_FILE_PROCESSING: "dz-file-processing",
-        DZ_FILE_COMPLETE: "dz-file-complete",
-        DZ_COMPLETE: "dz-complete",
-        DZ_PROCESSING: "dz-processing",
-    };
-
-    const DATA_KEY = {
-        OPTIONS: "options",
-    };
-
-    const Events = {
-        ADDED_FILE: "addedfile",
-        REMOVED_FILE: "removedfile",
-        COMPLETE: "complete",
-    };
 
     const myDropzone = new Dropzone(dropzoneElement, {
         url: dropzoneElement.action,
@@ -100,7 +74,7 @@ const dropzoneInit = () => {
         .then((response) => response.json())
         .then((files) => {
             files.forEach((file) => {
-                console.log(files);
+                console.log(file);
                 const mockFile = { name: file.name, size: file.size };
 
                 // Add the file to Dropzone
@@ -135,31 +109,5 @@ const dropzoneInit = () => {
                     console.error("Error deleting file:", error);
                 });
         }
-    });
-
-    myDropzone.on(Events.ADDED_FILE, () => {
-        if (item.querySelector(Selector.DZ_PREVIEW_COVER)) {
-            item.querySelector(
-                Selector.DZ_PREVIEW_COVER
-            ).classList.remove(ClassName.DZ_FILE_COMPLETE);
-        }
-        item.classList.add(ClassName.DZ_FILE_PROCESSING);
-    });
-    myDropzone.on(Events.REMOVED_FILE, () => {
-        if (item.querySelector(Selector.DZ_PREVIEW_COVER)) {
-            item.querySelector(
-                Selector.DZ_PREVIEW_COVER
-            ).classList.remove(ClassName.DZ_PROCESSING);
-        }
-        item.classList.add(ClassName.DZ_FILE_COMPLETE);
-    });
-    myDropzone.on(Events.COMPLETE, () => {
-        if (item.querySelector(Selector.DZ_PREVIEW_COVER)) {
-            item.querySelector(
-                Selector.DZ_PREVIEW_COVER
-            ).classList.remove(ClassName.DZ_PROCESSING);
-        }
-
-        item.classList.add(ClassName.DZ_FILE_COMPLETE);
     });
 };
