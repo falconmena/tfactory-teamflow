@@ -65,7 +65,7 @@ class AttachmentController extends Controller
         $attachment = Attachment::create([
             'media_type' => 'message',
             'media_path' => $attachment_path,
-            'created_by' => Auth::id(),
+            'created_by' => $request->created_by,
             'attachable_type' => $request->attachable_type,
             'attachable_id' => $request->attachable_id,
         ]);
