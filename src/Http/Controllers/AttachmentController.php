@@ -52,25 +52,27 @@ class AttachmentController extends Controller
         $attachment = $request->file('file');
         $attachment_path = '';
         $attachment_type = '';
-
+        $cleanedPath = '';
+        
         if ($request->hasFile('file') && $attachment->isValid()) {
-            $attachmenttype = $attachment->getClientOriginalExtension();
-            $attachmentName = time() . '-' . $attachment->getClientOriginalExtension();
+            $attachment_type = $attachment->getClientOriginalExtension();
+            $attachmentName = time() . '-' . $attachment_type;
             $savePath = '/public/tfactory-teamflow/attachments/';
             $imgPath = '/storage/tfactory-teamflow/attachments/';
             $attachment_path = $imgPath . $attachmentName;
+            $cleanedPath = '/tfactory-teamflow/attachments/' . $attachmentName;
             Storage::putFileAs($savePath, $attachment, $attachmentName);
         }
 
         $attachment = Attachment::create([
-            'media_type' => 'message',
+            'media_type' => $attachment_type,
             'media_path' => $attachment_path,
             'created_by' => $request->created_by,
             'attachable_type' => $request->attachable_type,
             'attachable_id' => $request->attachable_id,
         ]);
 
-        $fileSize = Storage::disk('public')->size($attachment->media_path);
+        $fileSize = Storage::disk('public')->size($cleanedPath);
 
         return response()->json([
             'id' => $attachment->id,
