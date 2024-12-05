@@ -12,6 +12,7 @@ class MessageController extends Controller
 
     public function get_logs($id, $type)
     {
+        dd($id, $type);
         $logs = Note::select()
             ->where('notable_type', $type)
             ->where('notable_id', $id)

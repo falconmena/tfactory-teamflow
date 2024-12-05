@@ -24,32 +24,15 @@ $(document).ready(function () {
     });
 
     //render logs
-    $('#logs').on('load', function (e) {
-        e.preventDefault();
-        const formData = {
-            data: [$('#notable').attr('data-notable-id'), $('#notable').attr('data-notable-type')],
-            _token: $('meta[name="csrf-token"]').attr('content'), // CSRF token for security
-        };
-
-        $.ajax({
-            url: $(this).attr('data-action'),
-            type: "POST",
-            data: formData,
-            success: function (response) {
-                alert('Data loaded successfully: ' + response.message);
-            },
-            error: function (xhr) {
-                alert('An error occurred: ' + xhr.responseText);
-            }
-        });
-    });
-
-    //render logs
     const container = $('#logs-container');
     const type = container.data('type');
     const id = container.data('id');
     const route = container.data('route');
 
+    console.log('Type: ', type);
+    console.log('ID: ', id);
+    console.log('Route: ', route);
+    
     // Make an AJAX request when the page loads
     $.ajax({
         url: route, // The route URL from the data attribute
@@ -60,7 +43,8 @@ $(document).ready(function () {
         },
         success: function(response) {
             // Assuming `response` contains the data you need to render
-            renderLogs(response);
+            console.log(' Logs: ', response);
+            // renderLogs(response);
         },
         error: function(xhr, status, error) {
             console.error("An error occurred: ", error);
