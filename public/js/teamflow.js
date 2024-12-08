@@ -35,11 +35,6 @@ const dropzoneInit = () => {
     let attachable_id = document.querySelector('input[name="attachable_id"]').value;
     let attachable_type = document.querySelector('input[name="attachable_type"]').value;
     let created_by = document.querySelector('input[name="created_by"]').value;
-    const tf_dropzone = $("#teamflow-dropzone-attachment");
-    let recent_route = tf_dropzone.data('recent-route');
-    let delete_route = tf_dropzone.data('delete-attachemnt-route');
-    let recent_token = tf_dropzone.data('recent-token');
-    let delete_token = tf_dropzone.data('delete-token');
     const myDropzone = new Dropzone(dropzoneElement, {
         url: dropzoneElement.action,
         method: "POST",
@@ -77,11 +72,21 @@ const dropzoneInit = () => {
             this.on("error", function (file, errorMessage) {
                 alert(`Error uploading file: ${errorMessage}`);
             });
+
+            renderRecent(myDropzone, attachable_id, attachable_type);
         },
     });
+};
 
-    // Fetch recently uploaded files
-    $.ajax({
+const renderRecent = (myDropzone, attachable_id, attachable_type) => {
+    const tf_dropzone = $("#teamflow-dropzone-attachment");
+    let recent_route = tf_dropzone.data('recent-route');
+    let delete_route = tf_dropzone.data('delete-attachemnt-route');
+    let recent_token = tf_dropzone.data('recent-token');
+    let delete_token = tf_dropzone.data('delete-token');
+
+     // Fetch recently uploaded files
+     $.ajax({
         type: "GET",
         url: recent_route,
         data: {
@@ -130,7 +135,7 @@ const dropzoneInit = () => {
                 });
         }
     });
-};
+}
 
 function renderLogs(data) {
     let logsHtml = '';
