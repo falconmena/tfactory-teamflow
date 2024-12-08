@@ -1,5 +1,5 @@
 <div class="tab-pane" id="attachments" role="tabpanel">
-    <form class="dropzone dropzone-multiple p-0" id="teamflow-dropzone-attachment" 
+    <form class="" id="teamflow-dropzone-attachment" 
         action="{{ route('teamflow.attachment.store') }}" method="POST" data-recent-token="{{ csrf_token() }}" data-delete-token="{{ csrf_token() }}"
         data-recent-route="{{ route('teamflow.attachment.recent') }}" data-delete-attachemnt-route="{{ route('teamflow.attachment.delete') }}">
         @csrf

@@ -30,7 +30,6 @@ $(document).ready(function () {
 const dropzoneInit = () => {
     console.log('working before return');
     const dropzoneElement = document.querySelector("#teamflow-dropzone-attachment");
-    if (dropzoneElement.dropzone) return; // Skip if already initialized
 
     let attachable_id = document.querySelector('input[name="attachable_id"]').value;
     let attachable_type = document.querySelector('input[name="attachable_type"]').value;
