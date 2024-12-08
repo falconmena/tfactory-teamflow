@@ -73,7 +73,12 @@ $(document).ready(function () {
             type: 'POST',
             data: formData,
             success: function (response) {
-                $('#teamflow_activity_form_response').html('<p>Activity Created successfully!</p>');
+                $('#teamflow_activity_form_response')
+                .html('<strong>Success:</strong> The activity was scheduled successfully!')
+                .addClass('alert alert-success')
+                .show();
+                $('#schedule-activity-modal').modal('hide');
+                $('#teamflow_activity_form')[0].reset();
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 422) {
