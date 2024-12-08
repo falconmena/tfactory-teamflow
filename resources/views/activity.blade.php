@@ -22,7 +22,8 @@
                                 <select name="activity_type" class="form-control fs--1">
                                     <option value="" disabled>Select</option>
                                     @foreach (Config::get('tfactory-teamflow.activity_type') as $key => $activity_type)
-                                        <option value="{{ $key }}" selected="selected">{{ $activity_type }}
+                                        <option value="{{ $key }}">
+                                            {{ $activity_type }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -37,8 +38,9 @@
                             </div>
                             <div class="col-12 col-lg-6 mb-3">
                                 <label class="col-form-label fs--1">Assigned To</label>
-                                <select name="assigned_to" class="form-control fs--1">
-                                    <option value="1">Ammar</option>
+                                <select name="assigned_to" class="form-control fs--1" id="teamflow_activity_assigned_to_users"
+                                    data-token="{{ csrf_token() }}" data-route="{{ route('teamflow.activity.get_assign_to_users') }}">
+                                    <option value="" disabled>Select</option>
                                 </select>
                             </div>
                             <div class="col-12 my-3">

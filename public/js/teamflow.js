@@ -1,109 +1,91 @@
 $(document).ready(function () {
-    // Init dropzone
-    dropzoneInit();
-    tinyMceInit();
+    if ($('#team-flow-interaction-dashboard').length) {
+        // Init dropzone
+        dropzoneInit();
+        tinyMceInit();
+        getActivityUsers();
 
-    $('#teamflowForm').on('submit', function (e) {
-        e.preventDefault();
+        //render logs
+        const container = $('#logs-container');
+        const type = container.data('type');
+        const id = container.data('id');
+        const _token = container.data('token');
+        const route = container.data('route');
 
-        const formData = {
-            data: $('#data').val(),
-            _token: $('meta[name="csrf-token"]').attr('content'), // CSRF token for security
-        };
+        console.log('Type: ', type);
+        console.log('ID: ', id);
+        console.log('Route: ', route);
 
+        // Make an AJAX request when the page loads
         $.ajax({
-            url: $(this).data('url'), // Use dynamic URL
-            type: "POST",
-            data: formData,
-            success: function (response) {
-                alert('Data saved successfully: ' + response.message);
+            url: route, // The route URL from the data attribute
+            type: 'GET', // or 'POST' based on your route's requirement
+            data: {
+                type: type,
+                id: id
             },
-            error: function (xhr) {
-                alert('An error occurred: ' + xhr.responseText);
-            }
-        });
-    });
-
-    //render logs
-    const container = $('#logs-container');
-    const type = container.data('type');
-    const id = container.data('id');
-    const _token = container.data('token');
-    const route = container.data('route');
-
-    console.log('Type: ', type);
-    console.log('ID: ', id);
-    console.log('Route: ', route);
-    
-    // Make an AJAX request when the page loads
-    $.ajax({
-        url: route, // The route URL from the data attribute
-        type: 'GET', // or 'POST' based on your route's requirement
-        data: {
-            type: type,
-            id: id
-        },
-        headers: {
-            'X-CSRF-TOKEN': _token // Add CSRF token to the request headers
-        },
-        success: function(response) {
-            // Assuming `response` contains the data you need to render
-            console.log(' Logs: ', response);
-            // renderLogs(response);
-        },
-        error: function(xhr, status, error) {
-            console.error("An error occurred: ", error);
-            alert("Failed to load logs. Please try again later.");
-        }
-    });
-    
-    $('#teamflow_schedule_activity').on('click', function (event) {
-        event.preventDefault();
-
-        $('#teamflow-activity-editor-content').val(tinymce.get('teamflow-activity-editor').getContent());
-
-        // Collect form data
-        var formData = $('#teamflow_activity_form').serialize();
-
-        // Get the form action URL
-        var formAction = $('#teamflow_activity_form').attr('action');
-
-        $.ajax({
-            url: formAction,
-            type: 'POST',
-            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': _token // Add CSRF token to the request headers
+            },
             success: function (response) {
-                $('#teamflow_activity_form_response')
-                .html('<strong>Success:</strong> The activity was scheduled successfully!')
-                .addClass('alert alert-success')
-                .show();
-                $('#schedule-activity-modal').modal('hide');
-                $('#teamflow_activity_form')[0].reset();
+                // Assuming `response` contains the data you need to render
+                console.log(' Logs: ', response);
+                // renderLogs(response);
             },
             error: function (xhr, status, error) {
-                if (xhr.status === 422) {
-                    var errors = xhr.responseJSON.errors;
-                    var errorMessages = '<div class="alert alert-danger">';
-
-                    // Loop through each error and display it
-                    $.each(errors, function(field, messages) {
-                        $.each(messages, function(index, message) {
-                            errorMessages += '<span class="d-block">' + message + '</span>';
-                        });
-                    });
-
-                    errorMessages += '</div>';
-
-                    // Display the validation errors
-                    $('#teamflow_activity_error_response').html(errorMessages);
-                } else {
-                    // Handle other types of errors
-                    var errorMessage = xhr.responseJSON.message || 'An error occurred.';
-                    $('#teamflow_activity_error_response').html('<p>' + errorMessage + '</p>');
-                }
+                console.error("An error occurred: ", error);
+                alert("Failed to load logs. Please try again later.");
             }
         });
-    });
+
+        $('#teamflow_schedule_activity').on('click', function (event) {
+            event.preventDefault();
+
+            $('#teamflow-activity-editor-content').val(tinymce.get('teamflow-activity-editor').getContent());
+
+            // Collect form data
+            var formData = $('#teamflow_activity_form').serialize();
+
+            // Get the form action URL
+            var formAction = $('#teamflow_activity_form').attr('action');
+
+            $.ajax({
+                url: formAction,
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    $('#teamflow_activity_form_response')
+                        .html('<strong>Success:</strong> The activity was scheduled successfully!')
+                        .addClass('alert alert-success')
+                        .show();
+                    $('#schedule-activity-modal').modal('hide');
+                    $('#teamflow_activity_form')[0].reset();
+                },
+                error: function (xhr, status, error) {
+                    if (xhr.status === 422) {
+                        var errors = xhr.responseJSON.errors;
+                        var errorMessages = '<div class="alert alert-danger">';
+
+                        // Loop through each error and display it
+                        $.each(errors, function (field, messages) {
+                            $.each(messages, function (index, message) {
+                                errorMessages += '<span class="d-block">' + message + '</span>';
+                            });
+                        });
+
+                        errorMessages += '</div>';
+
+                        // Display the validation errors
+                        $('#teamflow_activity_error_response').html(errorMessages);
+                    } else {
+                        // Handle other types of errors
+                        var errorMessage = xhr.responseJSON.message || 'An error occurred.';
+                        $('#teamflow_activity_error_response').html('<p>' + errorMessage + '</p>');
+                    }
+                }
+            });
+        });
+    }
 });
 
 // Attachment Dropzone
@@ -202,8 +184,8 @@ const dropzoneInit = () => {
 
 const tinyMceInit = () => {
     tinymce.init({
-        selector: '#teamflow-activity-editor', 
-        plugins: 'lists link image', 
+        selector: '#teamflow-activity-editor',
+        plugins: 'lists link image',
         toolbar: 'bold italic | bullist numlist | link image', // Restrict toolbar to desired features
         menubar: false, // Disable the menu bar if not needed
         valid_elements: 'a[href|target=_blank],strong/b,em/i,ul,ol,li,img[src|alt|width|height]', // Allow only specified tags
@@ -216,6 +198,32 @@ const tinyMceInit = () => {
         content_style: 'body { font-size: 14px; }' // Optional: customize editor content style
     });
 };
+
+const getActivityUsers = () => {
+    const container = $('#teamflow_activity_assigned_to_users');
+    const _token = container.data('token');
+    const route = container.data('route');
+
+    // Make an AJAX request when the page loads
+    $.ajax({
+        url: route,
+        type: 'GET',
+        data: {
+            type: type,
+            id: id
+        },
+        headers: {
+            'X-CSRF-TOKEN': _token
+        },
+        success: function (response) {
+            console.log(' users: ', response);
+        },
+        error: function (xhr, status, error) {
+            console.error("An error occurred: ", error);
+            alert("Failed to load users. Please try again later.");
+        }
+    });
+}
 
 function renderLogs(data) {
     // Assuming 'data' is an array of log objects

@@ -15,4 +15,5 @@ Route::group(['prefix' => 'teamflow'], function () {
     Route::post('/activity/store', [Techsfactory\TfactoryTeamflow\Http\Controllers\ActivityController::class, 'store'])->name('teamflow.activity.store');
     Route::get('/activity', [Techsfactory\TfactoryTeamflow\Http\Controllers\ActivityController::class, 'getActivity'])->name('teamflow.activity.get');
     Route::delete('/activity/delete/{id}', [Techsfactory\TfactoryTeamflow\Http\Controllers\ActivityController::class, 'delete'])->name('teamflow.activity.delete');
+    Route::get('/get_assign_to_users', [Techsfactory\TfactoryTeamflow\Http\Controllers\ActivityController::class, 'getAssignToUsers'])->name('teamflow.activity.get_assign_to_users');
 });

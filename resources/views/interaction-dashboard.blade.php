@@ -1,4 +1,4 @@
-<div class="card p-4 mx-2 my-4">
+<div class="card p-4 mx-2 my-4" id="team-flow-interaction-dashboard">
     <div id="teamflow_activity_form_response"></div>
     <div class="card-body">
         <div class="d-md-flex justify-content-between">

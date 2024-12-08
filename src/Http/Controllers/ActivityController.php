@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 use Techsfactory\TfactoryTeamflow\Models\Activity;
 
 class ActivityController extends Controller
@@ -73,5 +74,16 @@ class ActivityController extends Controller
         }
 
         return response()->json(['message' => 'activity deleted successfully']);
+    }
+
+    public function getAssignToUsers(Request $request)
+    {
+        $users = User::all();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Success',
+            'users' => $users
+        ]);
     }
 }
