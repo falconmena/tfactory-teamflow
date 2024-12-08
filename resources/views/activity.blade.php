@@ -9,6 +9,7 @@
                 @csrf
                 <input type="hidden" name="activityable_id" value="{{ $activityable_id }}">
                 <input type="hidden" name="activityable_type" value="{{ $activityable_type }}">
+                <input type="hidden" name="created_by" value="{{ $user->id }}">
                 <div class="modal-body p-0">
                     <div class="rounded-top-3 pt-4 ps-4 pe-7 bg-body-tertiary">
                         <h5 class="mb-1" id="modalExampleDemoLabel">Schedule Activity</h5>

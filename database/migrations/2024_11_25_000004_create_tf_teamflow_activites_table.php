@@ -9,11 +9,12 @@ return new class extends Migration {
         Schema::create('tf_teamflow_activites', function (Blueprint $table) {
             $table->id();
             $table->morphs('activityable');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('assigned_to')->constrained('users')->onDelete('cascade');
             $table->string('title');
             $table->dateTime('due_date');
             $table->integer('activity_type');
             $table->text('description')->nullable();
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

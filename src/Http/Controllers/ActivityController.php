@@ -61,6 +61,7 @@ class ActivityController extends Controller
             'end_date' => $request->end_date,
             'activity_type' => $request->activity_type,
             'description' => $request->editor_content,
+            'created_by' => $request->created_by,
         ]);
     }
 
