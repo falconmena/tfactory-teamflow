@@ -56,7 +56,7 @@ class ActivityController extends Controller
             'activityable_id' => $request->activityable_id,
             'activityable_type' => $request->activityable_type,
             'assigned_to' => $request->assigned_to,
-            'title' => $request->title,
+            'title' => $request->summary,
             'due_date' => $request->due_date,
             'activity_type' => $request->activity_type,
             'description' => $request->editor_content,
