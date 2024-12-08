@@ -209,7 +209,6 @@ const getActivityUsers = () => {
         url: route,
         type: 'GET',
         data: {
-            type: type,
             id: id
         },
         headers: {
