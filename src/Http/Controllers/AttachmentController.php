@@ -34,7 +34,7 @@ class AttachmentController extends Controller
                 return [
                     'id' => $attachment->id,
                     'name' => $attachmentName,
-                    'url' => Storage::url($attachment->media_path),
+                    'url' => asset($attachment->media_path),
                     'media_type' => $attachment->media_type,
                     'size' => $fileSize,
                     'created_at' => $attachment->created_at->toDateTimeString(),
