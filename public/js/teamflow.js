@@ -38,6 +38,21 @@ const teamFlowDropzoneInit = () => {
     let attachable_type = document.querySelector('input[name="attachable_type"]').value;
     let created_by = document.querySelector('input[name="created_by"]').value;
 
+    const Selector = {
+        DROPZONE: "[data-dropzone]",
+        DZ_ERROR_MESSAGE: ".dz-error-message",
+        DZ_PREVIEW: ".dz-preview",
+        DZ_PROGRESS: ".dz-preview .dz-preview-cover .dz-progress",
+        DZ_PREVIEW_COVER: ".dz-preview .dz-preview-cover",
+    };
+
+    const ClassName = {
+        DZ_FILE_PROCESSING: "dz-file-processing",
+        DZ_FILE_COMPLETE: "dz-file-complete",
+        DZ_COMPLETE: "dz-complete",
+        DZ_PROCESSING: "dz-processing",
+    };
+    
     const DATA_KEY = {
         OPTIONS: "options",
     };
