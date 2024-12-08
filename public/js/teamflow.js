@@ -212,7 +212,11 @@ const getActivityUsers = () => {
             'X-CSRF-TOKEN': _token
         },
         success: function (response) {
-            console.log(' users: ', response);
+            const select = $('#teamflow_activity_assigned_to_users');
+            
+            response.users.forEach(user => {
+                select.append(`<option value="${user.id}">${user.first_name} ${user.last_name}</option>`);
+            });
         },
         error: function (xhr, status, error) {
             console.error("An error occurred: ", error);

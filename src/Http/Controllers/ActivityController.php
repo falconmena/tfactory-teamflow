@@ -78,7 +78,7 @@ class ActivityController extends Controller
 
     public function getAssignToUsers(Request $request)
     {
-        $users = User::all();
+        $users = User::select('id', 'first_name', 'last_name')->get();
 
         return response()->json([
             'success' => true,
