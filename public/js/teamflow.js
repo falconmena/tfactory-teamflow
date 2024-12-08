@@ -1,7 +1,7 @@
 $(document).ready(function () {
     // Init dropzone
     dropzoneInit();
-    tinyMceInit()''
+    tinyMceInit();
 
     $('#teamflowForm').on('submit', function (e) {
         e.preventDefault();
