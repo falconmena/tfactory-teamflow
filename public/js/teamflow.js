@@ -28,8 +28,11 @@ $(document).ready(function () {
 
 // Attachment Dropzone
 const teamFlowDropzoneInit = () => {
-    console.log('working before return');
     const dropzoneElement = document.querySelector("#teamflow-dropzone-attachment");
+    // Destroy the existing Dropzone instance (if any)
+    if (Dropzone.forElement(dropzoneElement)) {
+        Dropzone.forElement(dropzoneElement).destroy();
+    }
 
     let attachable_id = document.querySelector('input[name="attachable_id"]').value;
     let attachable_type = document.querySelector('input[name="attachable_type"]').value;
@@ -45,18 +48,6 @@ const teamFlowDropzoneInit = () => {
             "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
         },
         init: function () {
-            const submitButton = document.querySelector("#submit-button");
-
-            submitButton.addEventListener("click", (e) => {
-                e.preventDefault();
-
-                if (this.getQueuedFiles().length > 0) {
-                    this.processQueue(); // Manually trigger file upload
-                } else {
-                    alert("No files to upload.");
-                }
-            });
-
             this.on("sending", function (file, xhr, formData) {
                 // Append additional data to the request
                 formData.append("attachable_id", attachable_id);
@@ -71,10 +62,10 @@ const teamFlowDropzoneInit = () => {
             this.on("error", function (file, errorMessage) {
                 alert(`Error uploading file: ${errorMessage}`);
             });
-
-            renderRecent(myDropzone, attachable_id, attachable_type);
         },
     });
+
+    renderRecent(myDropzone, attachable_id, attachable_type);
 };
 
 const renderRecent = (myDropzone, attachable_id, attachable_type) => {

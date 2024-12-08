@@ -28,10 +28,12 @@ class AttachmentController extends Controller
 
         return response()->json(
             $attachments->map(function ($attachment) {
-                $fileSize = Storage::disk('public')->size($attachment->media_path);
+                $attachmentName = basename($attachment->media_path);
+                $cleanedPath = '/tfactory-teamflow/attachments/' . $attachmentName;
+                $fileSize = Storage::disk('public')->size($cleanedPath);
                 return [
                     'id' => $attachment->id,
-                    'name' => basename($attachment->media_path),
+                    'name' => $attachmentName,
                     'url' => Storage::url($attachment->media_path),
                     'media_type' => $attachment->media_type,
                     'size' => $fileSize,
