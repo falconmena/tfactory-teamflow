@@ -208,9 +208,6 @@ const getActivityUsers = () => {
     $.ajax({
         url: route,
         type: 'GET',
-        data: {
-            id: id
-        },
         headers: {
             'X-CSRF-TOKEN': _token
         },
