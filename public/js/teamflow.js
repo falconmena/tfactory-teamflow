@@ -34,6 +34,11 @@ const dropzoneInit = () => {
     let attachable_id = document.querySelector('input[name="attachable_id"]').value;
     let attachable_type = document.querySelector('input[name="attachable_type"]').value;
     let created_by = document.querySelector('input[name="created_by"]').value;
+    const tf_dropzone = $("#teamflow-data-dropzone-attachment");
+    let recent_route = tf_dropzone.data('recent-route');
+    let delete_route = tf_dropzone.data('delete-attachemnt-route');
+    let recent_token = tf_dropzone.data('recent-token');
+    let delete_token = tf_dropzone.data('delete-token');
     const myDropzone = new Dropzone(dropzoneElement, {
         url: dropzoneElement.action,
         method: "POST",
@@ -77,10 +82,13 @@ const dropzoneInit = () => {
     // Fetch recently uploaded files
     $.ajax({
         type: "GET",
-        url: "/teamflow/attachments/recent",
+        url: recent_route,
         data: {
             attachable_id,
-            attachable_type
+            attachable_type,
+        },
+        headers: {
+            "X-CSRF-TOKEN": recent_token,
         },
         success: function (response) {
             console.log(response);
@@ -103,10 +111,10 @@ const dropzoneInit = () => {
         // Optional: Perform an AJAX request to delete the file
         const fileId = file.previewElement.querySelector(".dz-remove").dataset.fileId;
         if (fileId) {
-            fetch(`/teamflow/attachments/delete/${fileId}`, {
+            fetch(`${delete_route}/${fileId}`, {
                 method: "DELETE",
                 headers: {
-                    "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value,
+                    "X-CSRF-TOKEN": delete_token,
                 },
             })
                 .then((response) => response.json())

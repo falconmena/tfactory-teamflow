@@ -1,6 +1,7 @@
 <div class="tab-pane" id="attachments" role="tabpanel">
-    <form class="dropzone dropzone-multiple p-0" id="teamflow-data-dropzone-attachment"
-        action="{{ route('teamflow.attachment.store') }}" method="POST">
+    <form class="dropzone dropzone-multiple p-0" id="teamflow-data-dropzone-attachment" 
+        action="{{ route('teamflow.attachment.store') }}" method="POST" data-recent-token="{{ csrf_token() }}" data-delete-token="{{ csrf_token() }}"
+        data-recent-route="{{ route('teamflow.attachment.recent') }}" data-delete-attachemnt-route="{{ route('teamflow.attachment.delete') }}">
         @csrf
         <input type="hidden" name="attachable_id" value="{{ $attachable_id }}">
         <input type="hidden" name="attachable_type" value="{{ $attachable_type }}">
