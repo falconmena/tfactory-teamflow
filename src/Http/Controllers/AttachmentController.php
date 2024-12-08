@@ -82,9 +82,9 @@ class AttachmentController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
-        $attachment = Attachment::findOrFail($id);
+        $attachment = Attachment::findOrFail($request->fileId);
 
         // Delete file from storage
         if (Storage::disk('public')->exists($attachment->path)) {

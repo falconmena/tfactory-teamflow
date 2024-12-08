@@ -111,8 +111,11 @@ const dropzoneInit = () => {
         // Optional: Perform an AJAX request to delete the file
         const fileId = file.previewElement.querySelector(".dz-remove").dataset.fileId;
         if (fileId) {
-            fetch(`${delete_route}/${fileId}`, {
+            fetch(delete_route, {
                 method: "DELETE",
+                data: {
+                    fileId
+                },
                 headers: {
                     "X-CSRF-TOKEN": delete_token,
                 },
