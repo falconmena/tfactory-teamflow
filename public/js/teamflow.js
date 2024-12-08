@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Init dropzone
-    dropzoneInit();
+    teamFlowDropzoneInit();
 
     //render logs
     const container = $('#logs-container');
@@ -27,7 +27,7 @@ $(document).ready(function () {
 });
 
 // Attachment Dropzone
-const dropzoneInit = () => {
+const teamFlowDropzoneInit = () => {
     console.log('working before return');
     const dropzoneElement = document.querySelector("#teamflow-dropzone-attachment");
 
