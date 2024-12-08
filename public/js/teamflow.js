@@ -1,6 +1,7 @@
 $(document).ready(function () {
     // Init dropzone
     dropzoneInit();
+    tinyMceInit()''
 
     $('#teamflowForm').on('submit', function (e) {
         e.preventDefault();
@@ -58,6 +59,8 @@ $(document).ready(function () {
     
     $('#teamflow_schedule_activity').on('click', function (event) {
         event.preventDefault();
+
+        $('#teamflow-activity-editor-content').val(tinymce.get('teamflow-activity-editor').getContent());
 
         // Collect form data
         var formData = $('#teamflow_activity_form').serialize();
@@ -189,6 +192,23 @@ const dropzoneInit = () => {
                     console.error("Error deleting file:", error);
                 });
         }
+    });
+};
+
+const tinyMceInit = () => {
+    tinymce.init({
+        selector: '#teamflow-activity-editor', 
+        plugins: 'lists link image', 
+        toolbar: 'bold italic | bullist numlist | link image', // Restrict toolbar to desired features
+        menubar: false, // Disable the menu bar if not needed
+        valid_elements: 'a[href|target=_blank],strong/b,em/i,ul,ol,li,img[src|alt|width|height]', // Allow only specified tags
+        image_title: true, // Allow adding a title to images
+        automatic_uploads: true, // Automatically handle image uploads
+        file_picker_types: 'image', // Limit file picker to images
+        forced_root_block: false, // Avoid wrapping text in <p> tags
+        height: 200,
+        min_height: 150,
+        content_style: 'body { font-size: 14px; }' // Optional: customize editor content style
     });
 };
 

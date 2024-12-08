@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-12 col-lg-6 mb-3">
                                 <label class="col-form-label fs--1">Summary</label>
-                                <input class="form-control fs--1" name="title" type="text" />
+                                <input class="form-control fs--1" name="summary" type="text" />
                             </div>
                             <div class="col-12 col-lg-6 mb-3">
                                 <label class="col-form-label fs--1">Assigned To</label>
@@ -42,7 +42,10 @@
                             </div>
                             <div class="col-12 my-3">
                                 <div class="min-vh-25 border rounded">
-                                    <textarea class="tinymce d-none fs--1 border" data-tinymce="data-tinymce" name="content"></textarea>
+                                    <!-- Hidden input to hold TinyMCE content -->
+                                    <input type="hidden" id="teamflow-activity-editor-content" name="editor_content">
+
+                                    <textarea class="tinymce d-none fs--1 border" id="teamflow-activity-editor" teamflow-data-tinymce="teamflow-data-tinymce" name="content"></textarea>
                                 </div>
                             </div>
                         </div>
