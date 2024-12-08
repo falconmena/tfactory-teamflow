@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 class Activity extends Model
 {
     protected $table = 'tf_teamflow_activites';
-    protected $fillable = ['activityable_type', 'activityable_id', 'assigned_to', 'title', 'start_date', 'end_date', 'activity_type', 'description'];
+    protected $fillable = ['activityable_type', 'activityable_id', 'assigned_to', 'title', 'due_date', 'activity_type', 'description'];
 
     public function activityable()
     {

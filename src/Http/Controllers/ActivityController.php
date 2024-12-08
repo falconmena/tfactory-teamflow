@@ -35,7 +35,6 @@ class ActivityController extends Controller
 
     public function store(Request $request)
     {
-        dd($request);
         $request->validate([
             'activityable_id' => 'required',
             'activityable_type' => 'required',
