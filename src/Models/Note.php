@@ -15,7 +15,8 @@ class Note extends Model
 
     public function creator()
     {
-        return $this->belongsTo(config('tfacttory-teamflow.user_model'), 'created_by');
+        // return $this->belongsTo(config('tfacttory-teamflow.user_model'), 'created_by');
+        return $this->belongsTo(\App\Models\User::class, 'created_by');
     }
 
     public function attachments()

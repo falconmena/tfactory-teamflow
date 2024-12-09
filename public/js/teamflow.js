@@ -128,11 +128,11 @@ function renderLogs(data) {
             <div class="row my-2">
                 <div class="col-md d-flex">
                     <div class="avatar avatar-xl">
-                        <img class="rounded-circle" src="${log.avatarUrl}" alt="" />
+                        <img class="rounded-circle" src="${log.creator.logo}" alt="profile" />
                     </div>
                     <div class="flex-1 ms-2">
-                        <h6 class="fs--1 mb-0">${log.name} <span class="ms-1 text-500 fs--2">&lt;${log.email}&gt;</span></h6>
-                        <p class="text-warning fs--2 mb-2">${log.position}</p>
+                        <h6 class="fs--1 mb-0">${log.creator.first_name} ${log.creator.last_name}<span class="ms-1 text-500 fs--2">&lt;${log.creator.email}&gt;</span></h6>
+                        <p class="text-warning fs--2 mb-2">${log.creator.role}</p>
                         <h6 class="mb-0 fs--2">${log.content}</h6>
                     </div>
                 </div>

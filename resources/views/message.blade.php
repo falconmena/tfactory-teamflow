@@ -18,7 +18,7 @@
                 <input type="hidden" value="{{ $type }}" name="notableType">
                 <input type="hidden" value="{{ $id }}" name="notableId">
                 <input type="hidden" value="{{ auth('admin')->user()->id }}" name="created_by">
-                <p class="text-warning fs--2 mb-2">To: Followers of "[T7805] Test Case Round one"</p>
+                {{-- <p class="text-warning fs--2 mb-2">To: Followers of "[T7805] Test Case Round one"</p> --}}
                 <textarea class="tinymce d-none fs--1 border" data-tinymce="data-tinymce" name="message"></textarea>
                 <div class="text-end mt-3">
                     <button class="btn btn-primary px-4 py-2 fs--1"><span class="d-inline-block mx-2">Send </span> <span class="fab fa-telegram-plane"></span></button>
