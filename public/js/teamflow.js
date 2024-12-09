@@ -15,11 +15,11 @@ $(document).ready(function () {
         data: {
             _token: _token
         },
-        success: function (response) {
+        success: function(response) {
             console.log(' Logs: ', response);
             renderLogs(response);
         },
-        error: function (xhr, status, error) {
+        error: function(xhr, status, error) {
             console.error("An error occurred: ", error);
             alert("Failed to load logs. Please try again later.");
         }
@@ -37,32 +37,7 @@ const teamFlowDropzoneInit = () => {
     let attachable_id = document.querySelector('input[name="attachable_id"]').value;
     let attachable_type = document.querySelector('input[name="attachable_type"]').value;
     let created_by = document.querySelector('input[name="created_by"]').value;
-
-    const Selector = {
-        DROPZONE: "[data-dropzone]",
-        DZ_ERROR_MESSAGE: ".dz-error-message",
-        DZ_PREVIEW: ".dz-preview",
-        DZ_PROGRESS: ".dz-preview .dz-preview-cover .dz-progress",
-        DZ_PREVIEW_COVER: ".dz-preview .dz-preview-cover",
-    };
-
-    const ClassName = {
-        DZ_FILE_PROCESSING: "dz-file-processing",
-        DZ_FILE_COMPLETE: "dz-file-complete",
-        DZ_COMPLETE: "dz-complete",
-        DZ_PROCESSING: "dz-processing",
-    };
-
-    const DATA_KEY = {
-        OPTIONS: "options",
-    };
-
-    const Events = {
-        ADDED_FILE: "addedfile",
-        REMOVED_FILE: "removedfile",
-        COMPLETE: "complete",
-    };
-
+    
     const myDropzone = new Dropzone(dropzoneElement, {
         url: dropzoneElement.action,
         method: "POST",
@@ -81,40 +56,14 @@ const teamFlowDropzoneInit = () => {
                 formData.append("created_by", created_by);
             });
 
+            this.on("queuecomplete", function () {
+                alert("All files have been uploaded successfully!");
+            });
+
             this.on("error", function (file, errorMessage) {
                 alert(`Error uploading file: ${errorMessage}`);
             });
         },
-    });
-
-    let userOptions = utils.getData(item, DATA_KEY.OPTIONS);
-    userOptions = userOptions ? userOptions : {};
-    const dropzone = new window.Dropzone(myDropzone, userOptions);
-
-    dropzone.on(Events.ADDED_FILE, () => {
-        if (myDropzone.querySelector(Selector.DZ_PREVIEW_COVER)) {
-            myDropzone.querySelector(
-                Selector.DZ_PREVIEW_COVER
-            ).classList.remove(ClassName.DZ_FILE_COMPLETE);
-        }
-        myDropzone.classList.add(ClassName.DZ_FILE_PROCESSING);
-    });
-    dropzone.on(Events.REMOVED_FILE, () => {
-        if (myDropzone.querySelector(Selector.DZ_PREVIEW_COVER)) {
-            myDropzone.querySelector(
-                Selector.DZ_PREVIEW_COVER
-            ).classList.remove(ClassName.DZ_PROCESSING);
-        }
-        myDropzone.classList.add(ClassName.DZ_FILE_COMPLETE);
-    });
-    dropzone.on(Events.COMPLETE, () => {
-        if (myDropzone.querySelector(Selector.DZ_PREVIEW_COVER)) {
-            myDropzone.querySelector(
-                Selector.DZ_PREVIEW_COVER
-            ).classList.remove(ClassName.DZ_PROCESSING);
-        }
-
-        myDropzone.classList.add(ClassName.DZ_FILE_COMPLETE);
     });
 
     renderRecent(myDropzone, attachable_id, attachable_type);
@@ -127,8 +76,8 @@ const renderRecent = (myDropzone, attachable_id, attachable_type) => {
     let recent_token = tf_dropzone.data('recent-token');
     let delete_token = tf_dropzone.data('delete-token');
 
-    // Fetch recently uploaded files
-    $.ajax({
+     // Fetch recently uploaded files
+     $.ajax({
         type: "GET",
         url: recent_route,
         data: {
